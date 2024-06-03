@@ -578,7 +578,7 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         -- gopls = {},
-        -- pyright = {},
+        pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -918,6 +918,14 @@ require('lazy').setup({
     },
   },
 })
+
+require('lspconfig').pyright.setup {
+  settings = {
+    python = {
+      pythonPath = '/Users/hvi/github.com/Revyze/Revyze/backend_flask/.venv/bin/python3.9',
+    },
+  },
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
