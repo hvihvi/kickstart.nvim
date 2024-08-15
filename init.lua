@@ -899,7 +899,7 @@ require('lazy').setup({
     end,
   },
 
-  -- rename files etc
+  -- refacto: rename files etc
   {
     'antosha417/nvim-lsp-file-operations',
     dependencies = {
