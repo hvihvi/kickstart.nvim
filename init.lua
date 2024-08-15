@@ -899,6 +899,17 @@ require('lazy').setup({
     end,
   },
 
+  -- rename files etc
+  {
+    'antosha417/nvim-lsp-file-operations',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-tree/nvim-tree.lua',
+    },
+    config = function()
+      require('lsp-file-operations').setup()
+    end,
+  },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
