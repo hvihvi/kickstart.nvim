@@ -896,6 +896,7 @@ require('lazy').setup({
     config = function()
       require('nvim-tree').setup {}
       vim.keymap.set('n', '<leader>&', ':NvimTreeToggle<CR>', { desc = 'Toggle Nvim Tree' })
+      vim.keymap.set('n', '<leader>1', ':NvimTreeFindFileToggle<CR>', { desc = 'Toggle Nvim Tree' })
     end,
   },
 
