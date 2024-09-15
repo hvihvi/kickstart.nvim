@@ -432,6 +432,12 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sn', function()
         builtin.find_files { cwd = vim.fn.stdpath 'config' }
       end, { desc = '[S]earch [N]eovim files' })
+
+      require('telescope').load_extension 'refactoring'
+
+      vim.keymap.set({ 'n', 'x' }, '<leader>rr', function()
+        require('telescope').extensions.refactoring.refactors()
+      end)
     end,
   },
 
@@ -941,6 +947,16 @@ require('lazy').setup({
     },
     config = function()
       require('lsp-file-operations').setup()
+    end,
+  },
+  {
+    'ThePrimeagen/refactoring.nvim',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+    },
+    config = function()
+      require('refactoring').setup()
     end,
   },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
