@@ -1,5 +1,4 @@
 --[[
-
 /====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
 =====================================================================
@@ -575,7 +574,7 @@ require('lazy').setup({
           -- This may be unwanted, since they displace some of your code
           if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
             map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled {})
             end, '[T]oggle Inlay [H]ints')
           end
         end,
@@ -956,7 +955,34 @@ require('lazy').setup({
       'nvim-treesitter/nvim-treesitter',
     },
     config = function()
-      require('refactoring').setup()
+      require('refactoring').setup {}
+    end,
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require('copilot').setup {
+        suggestion = {
+          enabled = true,
+          auto_trigger = true,
+          hide_during_completion = true,
+          debounce = 75,
+          keymap = {
+            accept = '<S-Space>',
+            accept_word = false,
+            accept_line = false,
+            next = '<C-j>',
+            prev = '<C-k>',
+            dismiss = '<C-]>',
+          },
+        },
+        filetypes = {
+          -- typescript = true, -- allow specific filetype
+          ['*'] = true, -- disable for all other filetypes and ignore default `filetypes`
+        },
+      }
     end,
   },
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
