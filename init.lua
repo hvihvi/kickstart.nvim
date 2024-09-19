@@ -906,6 +906,7 @@ require('lazy').setup({
           node_decremental = 'j',
         },
       },
+      autotag = { enable = true },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
@@ -923,7 +924,13 @@ require('lazy').setup({
       --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
     end,
   },
-
+  {
+    'windwp/nvim-ts-autotag',
+    dependencies = { 'nvim-treesitter/nvim-treesitter' },
+    config = function()
+      require('nvim-ts-autotag').setup()
+    end,
+  },
   {
     'nvim-tree/nvim-tree.lua',
     version = '*',
