@@ -906,7 +906,6 @@ require('lazy').setup({
           node_decremental = 'j',
         },
       },
-      autotag = { enable = true },
     },
     config = function(_, opts)
       -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
