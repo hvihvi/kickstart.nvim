@@ -204,6 +204,15 @@ vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right win
 vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
+local function yank_file_path()
+  local file_path = vim.fn.expand '%:p'
+  vim.fn.setreg('+', file_path)
+  print('Yanked file path: ' .. file_path)
+end
+
+-- yank the current buffer's file path
+vim.keymap.set('n', '<leader>yp', yank_file_path, { desc = '[Y]ank current file [P]ath' })
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 
@@ -302,7 +311,7 @@ require('lazy').setup({
       require('which-key').setup()
 
       require('which-key').add {
-        { '<leader>c', group = '[C]ode' },
+        { '<leader>c', group = '[C]ode or [C]opilot' },
         { '<leader>d', group = '[D]iagnostics' },
         { '<leader>f', group = '[F]ind or [F]ile' },
         { '<leader>h', 'Git [H]unk', mode = 'v' },
@@ -310,6 +319,7 @@ require('lazy').setup({
         { '<leader>s', group = '[S]earch' },
         { '<leader>t', group = '[T]oggle' },
         { '<leader>w', group = '[W]orkspace' },
+        { '<leader>y', group = '[Y]ank' },
       }
     end,
   },
@@ -530,6 +540,8 @@ require('lazy').setup({
           -- Execute a code action, usually your cursor needs to be on top of an error
           -- or a suggestion from your LSP for this to activate.
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+          -- Open Copilot Chat
+          map('<leader>co', ':CopilotChat<CR>', '[C]opilot [C]hat')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
@@ -639,6 +651,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
+        'eslint-lsp', -- Used for JavaScript/TypeScript
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
