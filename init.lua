@@ -417,7 +417,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>e', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
+      vim.keymap.set('n', '<leader>ga', builtin.git_status, { desc = '[G]it [S]tatus' })
       vim.keymap.set('n', '<leader>fe', ':execute "/export \\\\(function\\\\|const\\\\) \\\\(\\\\zs.*\\\\)\\\\ze[ (]"<CR>n', { desc = '[F]ind [E]xports' })
 
       -- Slightly advanced example of overriding default behavior and theme
