@@ -406,8 +406,24 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>o', builtin.find_files, { desc = '[O]pen Files' })
       vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-      vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-      vim.keymap.set('n', '<leader>sa', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+      vim.keymap.set('n', '<leader>sa', builtin.live_grep, { desc = '[S]earch [A]ll by grep' })
+      vim.keymap.set('v', '<leader>sa', function()
+        local function getVisualSelection()
+          vim.cmd 'noau normal! "vy"'
+          local text = vim.fn.getreg 'v'
+          vim.fn.setreg('v', {})
+
+          text = string.gsub(text, '\n', '')
+          if #text > 0 then
+            return text
+          else
+            return ''
+          end
+        end
+        require('telescope.builtin').live_grep {
+          default_text = getVisualSelection(),
+        }
+      end, { desc = '[S]earch [A]ll by grep' })
       vim.keymap.set('n', '<leader>sD', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>é', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
       vim.keymap.set('n', '<leader>sd', builtin.lsp_references, { desc = '[S]earch [D]eclarations' })
