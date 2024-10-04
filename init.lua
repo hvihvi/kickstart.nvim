@@ -163,7 +163,7 @@ vim.opt.scrolloff = 999
 
 -- Set highlight on search, but clear on pressing <Esc> in normal mode
 vim.opt.hlsearch = true
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- overriden by multicursor
 
 -- move selection up of down
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
