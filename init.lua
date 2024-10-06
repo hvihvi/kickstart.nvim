@@ -165,6 +165,10 @@ vim.opt.scrolloff = 999
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- overriden by multicursor
 
+-- Save current buffer with Ctrl+s
+vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
+
 -- move selection up of down
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
