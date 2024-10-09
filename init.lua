@@ -171,7 +171,6 @@ vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 
 -- Remap x  and c to use the black hole register by default
 vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', 'x', '"_x', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'c', '"_c', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', 'c', '"_c', { noremap = true, silent = true })
 
@@ -330,6 +329,7 @@ require('lazy').setup({
         { '<leader>t', group = '[T]oggle' },
         { '<leader>w', group = '[W]orkspace' },
         { '<leader>y', group = '[Y]ank' },
+        { '<leader>l', group = '[L]int' },
       }
     end,
   },
@@ -578,6 +578,39 @@ require('lazy').setup({
           --  For example, in C this would take you to the header.
           map('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
 
+          -- run eslint fix all
+          vim.keymap.set('n', '<leader>l', function()
+            local params = vim.lsp.util.make_range_params()
+            params.context = { only = { 'source.fixAll.eslint' } } -- This targets ESLint's fixAll code action
+
+            local bufnr = vim.api.nvim_get_current_buf()
+
+            -- Request the ESLint "fixAll" code action
+            vim.lsp.buf_request(bufnr, 'textDocument/codeAction', params, function(err, result, ctx)
+              if err then
+                print('Error when requesting ESLint fixAll: ', err)
+                return
+              end
+              if result and result[1] then
+                local action = result[1]
+                local client = vim.lsp.get_client_by_id(ctx.client_id) -- Get the client
+
+                -- Check if the action contains an edit or a command to execute
+                if action.edit and client then
+                  -- Ensure we apply the correct offset encoding
+                  vim.lsp.util.apply_workspace_edit(action.edit, client.offset_encoding or 'utf-16')
+                elseif action.command then
+                  -- Execute the command if present
+                  vim.lsp.buf.execute_command(action.command)
+                else
+                  print 'No ESLint fixes available'
+                end
+              else
+                print 'No ESLint fixes available'
+              end
+              vim.cmd 'write'
+            end)
+          end, { noremap = true, silent = true })
           -- The following two autocommands are used to highlight references of the
           -- word under your cursor when your cursor rests there for a little while.
           --    See `:help CursorHold` for information about when this is executed
