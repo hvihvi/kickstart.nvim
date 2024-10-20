@@ -38,10 +38,10 @@ return {
     vim.keymap.set({ 'n', 'v' }, '<leader>ma', mc.matchAllAddCursors, { desc = '[M]ulticursor [A]dd all matches' })
 
     -- You can also add cursors with any motion you prefer:
-    vim.keymap.set('n', '<C-j>', function()
+    vim.keymap.set('n', '<C-S-j>', function()
       mc.addCursor 'j'
     end)
-    vim.keymap.set('n', '<C-k>', function()
+    vim.keymap.set('n', '<C-S-k>', function()
       mc.addCursor 'k'
     end)
     -- set('n', '<C-k>', function()
