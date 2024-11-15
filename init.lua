@@ -169,6 +169,9 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>') -- overriden by multicursor
 vim.keymap.set('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 
+-- save all changed files when pressing ZZ
+vim.api.nvim_set_keymap('n', 'ZZ', ':wqa<CR>', { noremap = true, silent = true })
+
 -- Remap x  and c to use the black hole register by default
 vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'c', '"_c', { noremap = true, silent = true })
