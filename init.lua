@@ -190,6 +190,12 @@ vim.keymap.set('n', 'N', 'Nzzzv')
 -- prevent from accidentally pressing <C-z> and suspending neovim
 vim.keymap.set({ '', 'n', 'i' }, '<C-z>', '<Nop>', { noremap = true, silent = true })
 
+-- Map <S-Enter> to create a new line below in normal mode
+vim.keymap.set('n', '<S-Enter>', 'o', { noremap = true, silent = true })
+
+-- Map <S-Enter> to create a new line below in insert mode
+vim.keymap.set('i', '<S-Enter>', '<Esc>o', { noremap = true, silent = true })
+
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
