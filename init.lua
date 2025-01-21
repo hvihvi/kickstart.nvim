@@ -83,6 +83,19 @@ I hope you enjoy your Neovim journey,
 P.S. You can delete this when you're done too. It's your config now! :)
 --]]
 
+if vim.g.neovide then
+  -- Put anything you want to happen only in Neovide here
+  -- Helper function for transparency formatting
+  local alpha = function()
+    return string.format('%x', math.floor(255 * vim.g.transparency or 0.8))
+  end
+  -- g:neovide_transparency should be 0 if you want to unify transparency of content and title bar.
+  vim.g.neovide_transparency = 0.0
+  vim.g.transparency = 0.8
+  vim.g.neovide_background_color = '#0f1117' .. alpha()
+  vim.g.neovide_window_blurred = true
+end
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -171,6 +184,10 @@ vim.keymap.set('i', '<C-s>', '<Esc>:w<CR>', { noremap = true, silent = true })
 
 -- save all changed files when pressing ZZ
 vim.api.nvim_set_keymap('n', 'ZZ', ':wqa<CR>', { noremap = true, silent = true })
+
+-- ctrl shift U/D to move up and down faster
+vim.keymap.set('n', '<C-S-u>', '10k', { noremap = true, silent = true })
+vim.keymap.set('n', '<C-S-d>', '10j', { noremap = true, silent = true })
 
 -- Remap x  and c to use the black hole register by default
 vim.api.nvim_set_keymap('n', 'x', '"_x', { noremap = true, silent = true })
