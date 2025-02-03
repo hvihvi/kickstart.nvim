@@ -93,6 +93,19 @@ if vim.g.neovide then
   vim.keymap.set('c', '<D-v>', '<C-R>+') -- Paste command mode
   vim.keymap.set('i', '<D-v>', '<ESC>l"+Pli') -- Paste insert mode
 
+  -- Helper function for transparency formatting
+  local alpha = function()
+    return string.format('%x', math.floor(255 * (vim.g.neovide_transparency_point or 0.8)))
+  end
+  -- Set transparency and background color (title bar color)
+  vim.g.neovide_transparency = 0.6
+  vim.g.neovide_transparency_point = 0.9
+  vim.g.neovide_background_color = '#0f1117' .. alpha()
+  vim.g.neovide_floating_blur_amount_x = 2.0
+  vim.g.neovide_floating_blur_amount_y = 2.0
+
+  vim.o.guifont = 'FiraMono Nerd Font Mono:h12'
+
   vim.cmd 'cd ~/github.com/Revyze/Revyze'
 end
 
@@ -931,6 +944,9 @@ require('lazy').setup({
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'
+
+      -- override highlight visual selection
+      vim.api.nvim_set_hl(0, 'Visual', { bg = '#364A82' })
     end,
   },
 
