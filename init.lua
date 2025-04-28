@@ -1078,57 +1078,11 @@ require('lazy').setup({
       require('lsp-file-operations').setup()
     end,
   },
-  {
-    'ThePrimeagen/refactoring.nvim',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-treesitter/nvim-treesitter',
-    },
-    config = function()
-      require('refactoring').setup {}
-    end,
-  },
-  {
-    'zbirenbaum/copilot.lua',
-    cmd = 'Copilot',
-    event = 'InsertEnter',
-    config = function()
-      require('copilot').setup {
-        suggestion = {
-          enabled = true,
-          auto_trigger = true,
-          hide_during_completion = true,
-          debounce = 75,
-          keymap = {
-            accept = '<Tab>',
-            accept_word = false,
-            accept_line = false,
-            next = '<C-j>',
-            prev = '<C-k>',
-            dismiss = '<C-]>',
-          },
-        },
-        filetypes = {
-          -- typescript = true, -- allow specific filetype
-          ['*'] = true, -- disable for all other filetypes and ignore default `filetypes`
-        },
-      }
-    end,
-  },
-  {
-    'CopilotC-Nvim/CopilotChat.nvim',
-    branch = 'canary',
-    dependencies = {
-      { 'zbirenbaum/copilot.lua' }, -- or github/copilot.vim
-      { 'nvim-lua/plenary.nvim' }, -- for curl, log wrapper
-    },
-    build = 'make tiktoken', -- Only on MacOS or Linux
-    opts = {
-      debug = true, -- Enable debugging
-      -- See Configuration section for rest
-    },
-    -- See Commands section for default commands if you want to lazy load on them
-  },
+  require 'plugins.refactoring',
+  -- require 'plugins.copilot',
+  -- require 'plugins.codecompanion',
+  -- require 'plugins.copilotchat',
+  require 'plugins.avante',
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
   -- place them in the correct locations.
@@ -1144,7 +1098,7 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   -- require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
-  require 'kickstart.plugins.multicursor',
+  require 'plugins.multicursor',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
