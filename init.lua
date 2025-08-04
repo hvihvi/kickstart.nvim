@@ -229,8 +229,8 @@ vim.keymap.set('i', '<S-Enter>', '<Esc>o', { noremap = true, silent = true })
 -- Diagnostic keymaps
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>dé', vim.diagnostic.open_float, { desc = '[D]isplay diagnostic [é]rror messages' })
-vim.keymap.set('n', '<leader>dq', vim.diagnostic.setloclist, { desc = '[D]isplay diagnostic [Q]uickfix list' })
+vim.keymap.set('n', '<leader>é', vim.diagnostic.open_float, { desc = 'Floating [é]rror messages' })
+vim.keymap.set('n', '<leader>fé', vim.diagnostic.setloclist, { desc = '[f]ix [é]rror messages' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -476,7 +476,7 @@ require('lazy').setup({
         }
       end, { desc = '[S]earch [A]ll by grep' })
       vim.keymap.set('n', '<leader>sD', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>é', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+      vim.keymap.set('n', '<leader>sé', builtin.diagnostics, { desc = '[S]earch [é]rrors' })
       vim.keymap.set('n', '<leader>sd', builtin.lsp_references, { desc = '[S]earch [D]eclarations' })
       vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = '[F]ind [R]eferences' })
       vim.keymap.set('n', '<C-f>', builtin.lsp_definitions)
