@@ -1,49 +1,73 @@
--- lua/plugins/avante.lua
 return {
   'yetone/avante.nvim',
-  build = 'make', -- pulls the pre-built Rust binary or builds from source
-  event = 'InsertEnter', -- load when you start typing
-  dependencies = {
-    'nvim-treesitter/nvim-treesitter',
-    'stevearc/dressing.nvim',
-    'nvim-lua/plenary.nvim',
-    'MunifTanjim/nui.nvim',
-  },
+  -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+  -- ⚠️ must add this setting! ! !
+  build = vim.fn.has 'win32' ~= 0 and 'powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false' or 'make',
+  event = 'VeryLazy',
+  version = false, -- Never set this value to "*"! Never!
+  ---@module 'avante'
+  ---@type avante.Config
   opts = {
-    ------------------------------------------------------------------
-    --  core provider settings – use Claude via the Anthropic API
-    ------------------------------------------------------------------
-    provider = 'claude', -- main provider
-    auto_suggestions_provider = 'claude',
-    claude = {
-      endpoint = 'https://api.anthropic.com',
-      model = 'claude-3-5-sonnet-20241022', -- or opus, haiku, etc.
-      temperature = 0,
-      max_tokens = 4096,
-      -- disable_tools = true,         -- flip on if the model over-uses tools
-    },
-
-    ------------------------------------------------------------------
-    --  behaviour: make it feel like Cursor
-    ------------------------------------------------------------------
-    behaviour = {
-      enable_cursor_planning_mode = true, -- Cursor-style block edits
-      enable_claude_text_editor_tool_mode = true, -- Claude 3.5 SONNET feature
-    },
-
-    ------------------------------------------------------------------
-    --  Smart-Tab key-maps (accept / cycle / dismiss)
-    ------------------------------------------------------------------
-    mappings = {
-      suggestion = {
-        accept = '<Tab>',
-        next = '<C-]>',
-        prev = '<C-[>',
-        dismiss = '<C-\\>',
+    -- add any opts here
+    -- for example
+    provider = 'claude',
+    providers = {
+      claude = {
+        endpoint = 'https://api.anthropic.com',
+        model = 'claude-sonnet-4-20250514',
+        timeout = 30000, -- Timeout in milliseconds
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 20480,
+        },
+      },
+      moonshot = {
+        endpoint = 'https://api.moonshot.ai/v1',
+        model = 'kimi-k2-0711-preview',
+        timeout = 30000, -- Timeout in milliseconds
+        extra_request_body = {
+          temperature = 0.75,
+          max_tokens = 32768,
+        },
       },
     },
-
-    -- tiny quality-of-life tweak so suggestions arrive quickly
-    suggestion = { debounce = 250 },
+  },
+  dependencies = {
+    'nvim-lua/plenary.nvim',
+    'MunifTanjim/nui.nvim',
+    --- The below dependencies are optional,
+    'echasnovski/mini.pick', -- for file_selector provider mini.pick
+    'nvim-telescope/telescope.nvim', -- for file_selector provider telescope
+    'hrsh7th/nvim-cmp', -- autocompletion for avante commands and mentions
+    'ibhagwan/fzf-lua', -- for file_selector provider fzf
+    'stevearc/dressing.nvim', -- for input provider dressing
+    'folke/snacks.nvim', -- for input provider snacks
+    'nvim-tree/nvim-web-devicons', -- or echasnovski/mini.icons
+    'zbirenbaum/copilot.lua', -- for providers='copilot'
+    {
+      -- support for image pasting
+      'HakonHarnes/img-clip.nvim',
+      event = 'VeryLazy',
+      opts = {
+        -- recommended settings
+        default = {
+          embed_image_as_base64 = false,
+          prompt_for_file_name = false,
+          drag_and_drop = {
+            insert_mode = true,
+          },
+          -- required for Windows users
+          use_absolute_path = true,
+        },
+      },
+    },
+    {
+      -- Make sure to set this up properly if you have lazy=true
+      'MeanderingProgrammer/render-markdown.nvim',
+      opts = {
+        file_types = { 'markdown', 'Avante' },
+      },
+      ft = { 'markdown', 'Avante' },
+    },
   },
 }
