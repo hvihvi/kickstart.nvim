@@ -1048,22 +1048,8 @@ require('lazy').setup({
       require('nvim-ts-autotag').setup()
     end,
   },
-  {
-    'nvim-tree/nvim-tree.lua',
-    version = '*',
-    lazy = false,
-    dependencies = {
-      'nvim-tree/nvim-web-devicons',
-    },
-    config = function()
-      require('nvim-tree').setup {
-        view = {
-          width = 50,
-        },
-      }
-      vim.keymap.set('n', '<leader>&', ':NvimTreeFindFileToggle<CR>', { desc = 'Toggle Nvim Tree' })
-    end,
-  },
+
+  require 'plugins.nvimtree',
 
   -- refacto: rename files etc
   {
@@ -1077,20 +1063,11 @@ require('lazy').setup({
     end,
   },
   require 'plugins.refactoring',
-  --   require 'plugins.copilot',
+  -- require 'plugins.copilot',
   -- require 'plugins.codecompanion',
   -- require 'plugins.copilotchat',
   -- require 'plugins.avante',
   require 'plugins.supermaven',
-  -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
-  -- init.lua. If you want these files, they are in the repository, so you can just download them and
-  -- place them in the correct locations.
-
-  -- NOTE: Next step on your Neovim journey: Add/Configure additional plugins for Kickstart
-  --
-  --  Here are some example plugins that I've included in the Kickstart repository.
-  --  Uncomment any of the lines below to enable them (you will need to restart nvim).
-  --
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
