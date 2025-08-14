@@ -227,10 +227,10 @@ vim.keymap.set('n', '<S-Enter>', 'o', { noremap = true, silent = true })
 vim.keymap.set('i', '<S-Enter>', '<Esc>o', { noremap = true, silent = true })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
-vim.keymap.set('n', '<leader>é', vim.diagnostic.open_float, { desc = 'Floating [é]rror messages' })
-vim.keymap.set('n', '<leader>fé', vim.diagnostic.setloclist, { desc = '[f]ix [é]rror messages' })
+vim.keymap.set('n', '<leader>éN', vim.diagnostic.goto_prev, { desc = 'Go to [é]rror [N]ext (prev) message' })
+vim.keymap.set('n', '<leader>én', vim.diagnostic.goto_next, { desc = 'Go to [é]rror [n]ext message' })
+vim.keymap.set('n', '<leader>éé', vim.diagnostic.open_float, { desc = 'Floating [é]rror messages' })
+vim.keymap.set('n', '<leader>él', vim.diagnostic.setloclist, { desc = 'Open [é]rror [L]ist' })
 
 -- Exit terminal mode in the builtin terminal with a shortcut that is a bit easier
 -- for people to discover. Otherwise, you normally need to press <C-\><C-n>, which
@@ -474,7 +474,7 @@ require('lazy').setup({
         }
       end, { desc = '[S]earch [A]ll by grep' })
       vim.keymap.set('n', '<leader>sD', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-      vim.keymap.set('n', '<leader>sé', builtin.diagnostics, { desc = '[S]earch [é]rrors' })
+      vim.keymap.set('n', '<leader>éa', builtin.diagnostics, { desc = 'é]rrors [A]ll' })
       vim.keymap.set('n', '<leader>sd', builtin.lsp_references, { desc = '[S]earch [D]eclarations' })
       vim.keymap.set('n', '<leader>fr', builtin.lsp_references, { desc = '[F]ind [R]eferences' })
       vim.keymap.set('n', '<C-f>', builtin.lsp_definitions)
@@ -482,7 +482,7 @@ require('lazy').setup({
       vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
       vim.keymap.set('n', '<leader>e', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
       vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
-      vim.keymap.set('n', '<leader>ga', builtin.git_status, { desc = '[G]it [S]tatus' })
+      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = '[G]it [S]tatus' })
       vim.keymap.set('n', '<leader>fe', ':execute "/export \\\\(function\\\\|const\\\\) \\\\(\\\\zs.*\\\\)\\\\ze[ (]"<CR>n', { desc = '[F]ind [E]xports' })
 
       -- Slightly advanced example of overriding default behavior and theme
