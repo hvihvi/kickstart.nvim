@@ -608,6 +608,8 @@ require('lazy').setup({
           map('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
           -- Open Copilot Chat
           map('<leader>co', ':CopilotChat<CR>', '[C]opilot [C]hat')
+          -- Open Claude Code
+          map('<leader>cc', ':ClaudeCode<CR>', '[C]opilot [C]hat')
 
           -- Opens a popup that displays documentation about the word under your cursor
           --  See `:help K` for why this keymap.
@@ -1063,10 +1065,11 @@ require('lazy').setup({
     end,
   },
   require 'plugins.refactoring',
-  -- require 'plugins.copilot',
+  require 'plugins.copilot',
+  require 'plugins.claude-code',
   -- require 'plugins.codecompanion',
   -- require 'plugins.copilotchat',
-  require 'plugins.avante',
+  -- require 'plugins.avante',
   -- require 'plugins.supermaven',
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
