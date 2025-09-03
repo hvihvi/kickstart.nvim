@@ -19,6 +19,7 @@ return {
       window = {
         mappings = {
           ['\\'] = 'close_window',
+          ['<Esc>'] = 'close_window',
         },
       },
     },
