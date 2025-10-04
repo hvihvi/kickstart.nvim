@@ -16,6 +16,9 @@ return {
   },
   opts = {
     filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+      },
       window = {
         width = 60,
         mappings = {
