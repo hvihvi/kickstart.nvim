@@ -767,7 +767,7 @@ require('lazy').setup({
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
             server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
+            vim.lsp.config[server_name].setup(server)
           end,
         },
       }
@@ -1065,12 +1065,11 @@ require('lazy').setup({
     end,
   },
   require 'plugins.refactoring',
-  -- require 'plugins.copilot',
+  require 'plugins.copilot',
   require 'plugins.claude-code',
   -- require 'plugins.codecompanion',
-  -- require 'plugins.copilotchat',
   -- require 'plugins.avante',
-  require 'plugins.supermaven',
+  -- require 'plugins.supermaven',
   -- require 'kickstart.plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
@@ -1107,13 +1106,14 @@ require('lazy').setup({
   },
 })
 
-require('lspconfig').pyright.setup {
+vim.lsp.config('pyright', {
   settings = {
     python = {
       pythonPath = '/Users/hvi/github.com/Revyze/Revyze/backend_flask/.venv/bin/python3.9',
     },
   },
-}
+})
+vim.lsp.enable 'pyright'
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
